@@ -5,7 +5,7 @@
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
 from os import getenv
-from models.base_models import Base, BaseModels
+from models.base_model import Base, BaseModel
 from models.city import City
 from models.place import Place
 from models.review import Review
@@ -20,30 +20,31 @@ class DBStorage:
 
     def __init__(self):
         """Initializes a DBStorage instance"""
-	self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(getenv("HBNB_MYSQL_USER"),
-                                      getenv("HBNB_MYSQL_PWD"),
-                                      getenv("HBNB_MYSQL_HOST"),
-                                      getenv("HBNB_MYSQL_DB"),
+                                             getenv("HBNB_MYSQL_PWD"),
+                                             getenv("HBNB_MYSQL_HOST"),
+                                             getenv("HBNB_MYSQL_DB")),
                                       pool_pre_ping=True)
         if getenv("HBNB_ENV") == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """ queries on the current database session (self.__session) all
-	    objects depending of the class name (argument cls)
+            objects depending of the class name (argument cls)
         """
-	if cls is None:
+        if cls is None:
             objs_list = self.__session.query(City).all()
-	    objs_list.extend(self.__session.query(Place).all())
-	    objs_list.extend(self.__session.query(Review).all())
-	    objs_list.extend(self.__session.query(State).all())
-	    objs_list.extend(self.__session.query(User).all())
-	else:
+            objs_list.extend(self.__session.query(Place).all())
+            objs_list.extend(self.__session.query(Review).all())
+            objs_list.extend(self.__session.query(State).all())
+            objs_list.extend(self.__session.query(User).all())
+        else:
             objs_list = self.__session.query(cls).all()
 
-	objs_dict = {"{}.{}".format(v.__class__.__name__, v.id): v for v in objs_list}
-	return objs_dict
+        objs_dict = {"{}.{}".format(v.__class__.__name__,
+                                    v.id): v for v in objs_list}
+        return objs_dict
 
     def new(self, obj):
         """add the object to the current database session"""
@@ -51,18 +52,19 @@ class DBStorage:
 
     def save(self):
         """commits all changes of the current database session"""
-	self.__session.commit()
+        self.__session.commit()
 
     def delete(self, obj=None):
         """deletes object from the current database session"""
-	if obj is not None:
+        if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
-        """ Creates all tables in the database and initialize a 
-	    new session
-	"""
+        """ Creates all tables in the database and initialize a
+            new session
+        """
         Base.metadata.create_all(self.__engine)
-	session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-	Session = scoped_session(session_factory)
-	self.__session = Session()
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
