@@ -13,6 +13,9 @@ from models.state import State
 from models.user import User
 from models.amenity import Amenity
 
+classes = {"Amenity": Amenity, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
+
 
 class DBStorage:
     """This class manages storage of hbnb models in db system"""
@@ -40,6 +43,10 @@ class DBStorage:
             for obj in all_cls:
                 objs_list.extend(self.__session.query(obj).all())
         else:
+            if type(cls) == str:
+                cls = classes[cls]
+            elif cls not in classes.values():
+                return
             objs_list = self.__session.query(cls).all()
 
         objs_dict = {"{}.{}".format(v.__class__.__name__,
