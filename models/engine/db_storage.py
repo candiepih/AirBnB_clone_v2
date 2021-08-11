@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from models.amenity import Amenity
 
 
 class DBStorage:
@@ -35,11 +36,9 @@ class DBStorage:
         """
         objs_list = []
         if cls is None:
-            objs_list.extend(self.__session.query(City).all())
-            objs_list.extend(self.__session.query(Place).all())
-            objs_list.extend(self.__session.query(Review).all())
-            objs_list.extend(self.__session.query(State).all())
-            objs_list.extend(self.__session.query(User).all())
+            all_cls = [City, Place, Review, State, User, Amenity]
+            for obj in all_cls:
+                objs_list.extend(self.__session.query(obj).all())
         else:
             objs_list = self.__session.query(cls).all()
 
