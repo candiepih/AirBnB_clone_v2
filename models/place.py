@@ -6,12 +6,12 @@ from os import getenv
 from sqlalchemy.orm import relationship
 
 metadata = Base.metadata
-place_amenity = Table("place_amenity", metadata, 
+place_amenity = Table("place_amenity", metadata,
                       Column("place_id", String(60), ForeignKey("places.id"),
                              primary_key=True, nullable=False),
                       Column("amenity_id", String(60),
                              ForeignKey("amenities.id"),
-			     primary_key=True, nullable=False))
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -32,7 +32,7 @@ class Place(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship("Review", backref="place")
         amenities = relationship("Amenity", secondary=place_amenity,
-	                         viewonly=False)
+                                 viewonly=False)
     else:
         @property
         def reviews(self):
