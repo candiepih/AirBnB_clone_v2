@@ -33,12 +33,13 @@ class DBStorage:
         """ queries on the current database session (self.__session) all
             objects depending of the class name (argument cls)
         """
+        objs_list = []
         if cls is None:
-            objs_list = self.__session.query(City).all()
-            objs_list.extend(self.__session.query(Place).all())
-            objs_list.extend(self.__session.query(Review).all())
+            objs_list.extend(self.__session.query(City).all())
+            # objs_list.extend(self.__session.query(Place).all())
+            # objs_list.extend(self.__session.query(Review).all())
             objs_list.extend(self.__session.query(State).all())
-            objs_list.extend(self.__session.query(User).all())
+            # objs_list.extend(self.__session.query(User).all())
         else:
             objs_list = self.__session.query(cls).all()
 
