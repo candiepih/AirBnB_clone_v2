@@ -4,6 +4,12 @@ import unittest
 from models.base_model import BaseModel
 from models import storage
 import os
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class test_fileStorage(unittest.TestCase):
@@ -40,6 +46,26 @@ class test_fileStorage(unittest.TestCase):
         new = BaseModel()
         temp = storage.all()
         self.assertIsInstance(temp, dict)
+
+    def test_all_params(self):
+        """ __objects id properly returned  """
+        Mm = ['BaseModel', 'User', 'Place',
+              'City', 'State', 'Review', 'Amenity']
+        new = BaseModel()
+        temp = storage.all(BaseModel)
+        self.assertIsInstance(temp, dict)
+
+        # Test that only specified classes are returned
+        for m in Mm:
+            tmp = storage.all(eval(m))
+            for n in Mm:
+                if n != m:
+                    self.assertNotIn(n, tmp)
+
+    def test_all_params_error(self):
+        """Check that the correct error message is raised"""
+        with self.assertRaises(NameError):
+            tmp = storage.all(MyModel)
 
     def test_base_model_instantiation(self):
         """ File is not created on BaseModel save """
@@ -107,3 +133,12 @@ class test_fileStorage(unittest.TestCase):
         from models.engine.file_storage import FileStorage
         print(type(storage))
         self.assertEqual(type(storage), FileStorage)
+
+    def test_delete(self):
+        """ Confirm delete method deletes objects """
+
+        new = BaseModel()
+        new.save()
+        new_id = "BaseModel" + "." + "new.id"
+        storage.delete()
+        self.assertNotIn(new_id, storage.all().keys())
