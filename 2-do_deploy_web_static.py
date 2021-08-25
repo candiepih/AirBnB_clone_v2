@@ -3,11 +3,9 @@
     of the web_static folder and deploys an archive to your web
     servers
 """
-from fabric.api import local, put, env
+from fabric.api import run, put, env
 from datetime import datetime
 from os.path import isfile, basename
-
-
 env.host = ['34.138.28.3', '34.138.208.167']
 
 
