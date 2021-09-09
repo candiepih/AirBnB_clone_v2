@@ -75,3 +75,9 @@ class DBStorage:
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
+
+    def close(self):
+        """
+            This clears all items and ends any transaction in progress
+        """
+        self.__session.close()
