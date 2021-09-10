@@ -21,16 +21,15 @@ def states_cities_route():
         from the storage engine
     """
     states = storage.all(State)
-    cities = State.cities
     all_states = []
 
     for state in states.values():
+        cities = state.cities
         cities_list = list(filter(lambda x: x.state_id == state.id, cities))
         c_data = list(map(lambda x: [x.id, x.name], cities_list))
-        # c_data = [[city.id, city.name] for city in cities_list]
         all_states.append([state.id, state.name, c_data])
 
-    return render_template("7-states_list.html", states=all_states)
+    return render_template("8-cities_by_states.html", states=all_states)
 
 
 if __name__ == "__main__":
