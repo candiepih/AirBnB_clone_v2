@@ -82,15 +82,15 @@ section.places article .information .number_bathrooms::before {
 }
 
 section.places article .information .max_guest::before {
-    background-image: url("/images/icon_group.png");
+    background-image: url("/static/images/icon_group.png");
 }
 
 section.places article .information .number_rooms::before {
-    background-image: url("/images/icon_bed.png");
+    background-image: url("/static/images/icon_bed.png");
 }
 
 section.places article .information .number_bathrooms::before {
-    background-image: url("/images/icon_bath.png");
+    background-image: url("/static/images/icon_bath.png");
 }
 
 footer {

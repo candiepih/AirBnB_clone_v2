@@ -13,6 +13,6 @@ header {
     width: 142px;
     height: 60px;
     transform: translateY(-50%);
-    background-image: url("/images/logo.png");
+    background-image: url("/static/images/logo.png");
     background-repeat: no-repeat;
 }

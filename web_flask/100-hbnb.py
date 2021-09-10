@@ -36,9 +36,6 @@ def states_cities_route():
     for amenity in amenities.values():
         all_amenities.append([amenity.id, amenity.name])
     for place in places.values():
-        #all_users = list(filter(lambda x: x.id == place.user_id, users.values()))
-        #user = None if len(users) == 0 else all_users[0]
-        #place["user"] = user
         all_places.append(place)
 
     return render_template("100-hbnb.html", states=all_states,
