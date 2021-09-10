@@ -16,7 +16,7 @@ def close_context(exception):
 
 @app.route("/states")
 @app.route("/states/<string:id>")
-def states_cities_route(id):
+def states_cities_route(id=None):
     """
         Route that fetches all states or a certain state if exists
         or not
@@ -27,17 +27,19 @@ def states_cities_route(id):
     if id is None:
         for state in states.values():
             all_states.append([state.id, state.name])
-        return render_template("8-cities_by_states.html",
+        return render_template("9-states.html",
                                states=all_states, id=id)
     else:
-        state = list(filter(lambda x: x.id == id, states.values()))
+        l_state = list(filter(lambda x: x.id == id, states.values()))
+        state = None if len(l_state) == 0 else l_state[0]
         c_data = None
-        if state[0]:
-            cities = state[0].cities
-            cities_list = list(filter(lambda x: x.state_id == state.id, cities))
+        if state:
+            cities = state.cities
+            cities_list = list(filter(lambda x: x.state_id == state.id,
+                                      cities))
             c_data = list(map(lambda x: [x.id, x.name], cities_list))
-        return render_template("8-cities_by_states.html",
-                               state=state[0], cities=c_data, id=id)
+        return render_template("9-states.html",
+                               state=state, cities=c_data, id=id)
 
 
 if __name__ == "__main__":
