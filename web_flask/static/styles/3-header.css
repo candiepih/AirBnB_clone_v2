@@ -1,18 +1,18 @@
 header {
-	background-color: white;
-	height: 70px;
-	width: 100%;
-	
-	border-bottom: 1px solid #CCCCCC;
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px solid#CCCCCC;
+    position: relative;
 }
 
-#header_logo {
-	height: 100%;
-	width: 142px;
-
-	background-image: url("../images/logo.png");
-	background-repeat: no-repeat;
-	background-position: center;
-
-	margin-left: 20px;
+.logo {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    width: 142px;
+    height: 60px;
+    transform: translateY(-50%);
+    background-image: url("/images/logo.png");
+    background-repeat: no-repeat;
 }
