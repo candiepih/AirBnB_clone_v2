@@ -6,7 +6,7 @@ app.url_map.strict_slashes = False
 
 
 @app.teardown_appcontext
-def close_context():
+def close_context(exception):
     """
         These functions are typically also called when the request
         context is popped.
@@ -15,9 +15,17 @@ def close_context():
 
 
 @app.route("/states_list")
-def states():
+def states_route():
+    """
+        Route that fetches all states from the storage engine
+    """
     states = storage.all(State)
-    return render_template("7-states_list.html", states=states)
+    all_states = []
+
+    for state in states.values():
+        all_states.append([state.id, state.name])
+
+    return render_template("7-states_list.html", states=all_states)
 
 
 if __name__ == "__main__":
