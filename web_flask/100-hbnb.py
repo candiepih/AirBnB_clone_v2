@@ -14,7 +14,7 @@ def close_context(exception):
     storage.close()
 
 
-@app.route("/hbnb_filters")
+@app.route("/hbnb")
 def states_cities_route():
     """
         Route that fetches all cities in a stage
