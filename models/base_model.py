@@ -30,6 +30,12 @@ class BaseModel:
                 kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
                                                          '%Y-%m-%dT%H:%M:%S.%f'
                                                          )
+            if "id" not in kwargs.keys():
+                setattr(self, "id", str(uuid.uuid4()))
+            if "created_at" not in kwargs.keys():
+                setattr(self, "created_at", datetime.now())
+            if "uptaded_at" not in kwargs.keys():
+                setattr(self, "updated_at", datetime.now())
             kwargs.pop('__class__', None)
             self.__dict__.update(kwargs)
 
