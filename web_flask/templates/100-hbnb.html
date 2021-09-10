@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="user">
-                    <p><b>Owner: </b>{{ place.user }}</p>
+                    <p><b>Owner: </b>{{ place.user.first_name ~ ' ' ~ place.user.last_name }}</p>
                 </div>
                 <div class="description">
                     <p>{{ place.description }}</p>
