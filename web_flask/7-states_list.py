@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+"""
+    Starts a flask web application listening on 0.0.0.0, port 5000
+    and displays the results of states via "/states_list" route
+"""
 from flask import Flask, render_template
 from models import storage, State
 

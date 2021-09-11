@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""
+    Starts a flask web application listening on 0.0.0.0, port 5000
+    and displays the results of states and amenities to a web page
+    via "/hbnb_filters" route
+"""
 from flask import Flask, render_template
 from models import storage, State, Amenity
 
