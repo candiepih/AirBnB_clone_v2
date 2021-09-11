@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+"""
+    Contains a file that starts a Flask web application
+    and displays “Hello HBNB!” at "/"
+"""
 from flask import Flask
 
 app = Flask(__name__)
