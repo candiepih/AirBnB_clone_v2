@@ -21,8 +21,8 @@
             <H1>State: {{ state.name }}</H1>
             <H3>Cities:</H3>
             <UL>
-                {% for city in cities %}
-                <LI>{{ city[0] }}: <B>{{city[1]}}</B></LI>
+                {% for city in cities|sort(attribute='1' %}
+                <LI>{{ city[0] }}: <B>{{ city[1] }}</B></LI>
                 {% endfor %}
             </UL>
             {% endif %}
