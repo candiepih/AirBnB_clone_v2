@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""
+    Script that starts a Flask web application:
+    /: display “Hello HBNB!”
+    /hbnb: display “HBNB”
+"""
 from flask import Flask
 
 app = Flask(__name__)
